@@ -154,3 +154,28 @@ class ProductCard extends StatelessWidget {
         ));
   }
 }
+
+class Stars extends StatelessWidget {
+  final int rating;
+
+  const Stars({super.key, required this.rating});
+
+  @override
+  Widget build(BuildContext context) {
+    int displayedRating = rating.clamp(0, 3);
+
+    List<Widget> stars = List.generate(3, (index) {
+      return Icon(
+        index < displayedRating ? Icons.star : Icons.star_border,
+        color: Colors.amber,
+        size: 24,
+      );
+    });
+
+    return Row(
+      mainAxisAlignment:
+          MainAxisAlignment.center, // Center the stars horizontally
+      children: stars,
+    );
+  }
+}
