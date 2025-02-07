@@ -179,3 +179,60 @@ class Stars extends StatelessWidget {
     );
   }
 }
+class ProductDetailsScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // Get the arguments passed via Navigator.pushNamed
+    final args =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+
+    if (args == null) {
+      return Scaffold(
+        appBar: AppBar(title: Text("Error")),
+        body: Center(child: Text('No data passed to the screen')),
+      );
+    }
+
+    // Extract product data from arguments
+    final String title = args['title'];
+    final String description = args['description'];
+    final int price = args['price'];
+    final int rating = args['rating'];
+    final Color color = args['color'];
+
+    return Scaffold(
+        appBar: AppBar(
+          title: Text(title),
+          backgroundColor: color,
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(0),
+          child: Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  height: 200,
+                  width: double.infinity,
+                  color: color,
+                  alignment: Alignment.center,
+                  child: Center(
+                    child: Text(
+                      title,
+                      style: TextStyle(color: Colors.white, fontSize: 24),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16),
+                Text('Description: $description'),
+                SizedBox(height: 16),
+                Text('Price: \$${price}'),
+                SizedBox(height: 16),
+                Text('Rating:'),
+                Stars(rating: rating),
+              ],
+            ),
+          ),
+        ));
+  }
+}
