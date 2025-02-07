@@ -90,3 +90,67 @@ class ProductScreen extends StatelessWidget {
     );
   }
 }
+
+class ProductCard extends StatelessWidget {
+  final String title;
+  final String description;
+  final Color color;
+  final int? rating;
+  final int price;
+
+  const ProductCard({
+    super.key,
+    required this.title,
+    required this.description,
+    required this.color,
+    this.rating,
+    required this.price,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+        onTap: () => Navigator.pushNamed(
+              context,
+              '/product',
+              arguments: {
+                'title': title,
+                'description': description,
+                'price': price,
+                'rating': rating ?? 0,
+                'color': color,
+              },
+            ),
+        child: Card(
+          child: Row(
+            children: [
+              Expanded(
+                child: Container(
+                  height: 100,
+                  color: color,
+                  alignment: Alignment.center,
+                  child: Text(
+                    title,
+                    style: TextStyle(color: Colors.white, fontSize: 30),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
+                    Text(description),
+                    Text('Price: \$${price}'),
+                    if (rating != null)
+                      Stars(rating: rating!)
+                    else
+                      Stars(rating: 0),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ));
+  }
+}
