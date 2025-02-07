@@ -179,6 +179,7 @@ class Stars extends StatelessWidget {
     );
   }
 }
+
 class ProductDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
